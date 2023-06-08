@@ -1,15 +1,31 @@
-version: '3.7'
+version: '3'
 
 services:
   bot:
     build: .
+    volumes:
+      - .:/app
+    networks:
+      - cineman
     depends_on:
       - db
+    restart: on-failure
   db:
     image: mongo:latest
+    ports:
+      - '27017:27017'
     environment:
       - MONGO_INITDB_DATABASE=cineman
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - .env
+    volumes:
+      - cinemandb:/data/db
+    networks:
+      - cineman
+    restart: on-failure
+
+volumes:
+  cinemandb:
+
+networks:
+  cineman:

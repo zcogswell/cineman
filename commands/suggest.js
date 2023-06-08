@@ -15,8 +15,8 @@ module.exports = {
   async execute(interaction) {
     const query = interaction.options.getString('movie');
     if (query.search('imdb.com') > -1) {
-      const imdbID = query.replace('https://www.imdb.com/title/', '').replace('/', '');
-      omdb.get({ id: imdbID })
+      const imdbid = query.replace('https://www.imdb.com/title/', '').replace('/', '');
+      omdb.get({ id: imdbid })
         .then((res) => interaction.reply(`*${res.title}* (${res.year}) suggested by ${interaction.user}`))
         .catch((error) => interaction.reply(error.message));
     }
